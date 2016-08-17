@@ -9,4 +9,6 @@
 欢迎合作 :)
 
 
-README.md [语法参考](https://github.com/guodongxiaren/README )
+README.md
+[语法参考1](https://github.com/guodongxiaren/README )
+[语法参考2](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet )
