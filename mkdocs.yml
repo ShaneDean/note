@@ -7,14 +7,14 @@ nav:
    - Home:  index.md 
    - 待整理笔记:
       - shell语法:  linux/shell.md 
-      - bpf : cs/bpf.md 
-      - libseccomp  :  linux/libseccomp.md 
-   - otopi  :
-      - 分析  :  otopi/analyze.md 
-      - 在ovirt-engine的使用  :  otopi/otopi_in_ovirt-engine.md 
-   - ovirt-engine  :
-      - 开发环境  :  ovirt/engine/development_environment.md
+      - bpf: cs/bpf.md 
+      - libseccomp:  linux/libseccomp.md 
+   - otopi:
+      - 分析: otopi/analyze.md 
+      - '在ovirt-engine的使用': 'otopi/otopi_in_ovirt_engine.md' 
+   - 'ovirt-engine':
+      - 开发环境: 'ovirt/engine/development_environment.md'
    - 密码学: 
-      - <图解密码学> note  :  cs/cryptology.md 
-   - About :  about.md 
+      - '<图解密码学> note':  cs/cryptology.md 
+   - About: about.md 
   
