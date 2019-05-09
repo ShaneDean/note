@@ -46,16 +46,16 @@
                 =：赋值符号，两边不能有空格。把VALUE存储到NAME指向的内存空间中
         （2）declare  命令
                     declare [-aAfFgilrtux] [-p] [name[=value] ...]
-                    +：指定变量的属性
-                    -：取消变量所设的属性
-                    -a：一个使名称索引的数组（如果支持的话）
-                    -A：一个使名称关联数组（如果支持）
-                    -i：“整数”属性
-                    -l： to convert NAMEs to lower case on assignment
-                    -r：名字只读
-                    -t    to make NAMEs have the `trace' attribute
-                    -u：to convert NAMEs to upper case on assignment
-                    -x    to make NAMEs export
+                    +:  指定变量的属性
+                    -:  取消变量所设的属性
+                    -a:  一个使名称索引的数组（如果支持的话）
+                    -A:  一个使名称关联数组（如果支持）
+                    -i:  “整数”属性
+                    -l:  to convert NAMEs to lower case on assignment
+                    -r:  名字只读
+                    -t:   to make NAMEs have the 'trace' attribute
+                    -u:  to convert NAMEs to upper case on assignment
+                    -x:   to make NAMEs export
     
     重新赋值变量：
         （1）NAME=VALUE（再次重新赋值）
