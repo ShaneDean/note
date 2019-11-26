@@ -1,0 +1,20 @@
+language: python
+python: 3.6
+
+branches: master
+
+install:
+    - pip install mkdocs
+
+script: true
+
+before_deploy:
+    - mkdocs build --verbose --clean --strict
+    
+deploy:
+    provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN
+    local_dir: site
+    on:
+        branch: master
