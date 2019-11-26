@@ -9,7 +9,7 @@ install:
 script: true
 
 before_deploy:
-    - mkdocs build --verbose --clean --strict
+    - mkdocs build
     
 deploy:
     provider: pages
