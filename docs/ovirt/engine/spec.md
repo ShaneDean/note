@@ -221,4 +221,4 @@ autoconf中的宏变量
 
 根据上面的一些知识点 初步整理的engine的spec文件情况如下图
 
-[ovirt-engine-spec](https://raw.githubusercontent.com/ShaneDean/file/a66e4024f1769b5dc16dde24d04dc443fdd768d6/blog/ovirt_engine_env/ovirt-engine-spec.png)
+![ovirt-engine-spec](https://raw.githubusercontent.com/ShaneDean/file/a66e4024f1769b5dc16dde24d04dc443fdd768d6/blog/ovirt_engine_env/ovirt-engine-spec.png)
