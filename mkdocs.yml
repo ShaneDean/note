@@ -14,6 +14,7 @@ nav:
       - '在ovirt-engine的使用': 'otopi/otopi_in_ovirt_engine.md' 
    - 'ovirt-engine':
       - 开发环境: 'ovirt/engine/development_environment.md'
+      - spec: 'ovrt/engine/spec.md'
    - 密码学: 
       - '<图解密码学> note':  cs/cryptology.md 
    - About: about.md 
