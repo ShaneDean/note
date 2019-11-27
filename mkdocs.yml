@@ -15,6 +15,7 @@ nav:
    - 'ovirt-engine':
       - 开发环境: 'ovirt/engine/development_environment.md'
       - spec: 'ovirt/engine/spec.md'
+      - makefile: 'ovirt/engine/makefile.md'
    - 密码学: 
       - '<图解密码学> note':  cs/cryptology.md 
    - About: about.md 
