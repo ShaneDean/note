@@ -5,12 +5,14 @@ repo_url: https://github.com/ShaneDean/note/
 edit_uri: blob/master/docs/
 nav:
    - Home:  index.md 
-   - 待整理笔记:
+   - linux:
       - shell语法:  linux/shell.md 
       - bpf: cs/bpf.md 
       - libseccomp:  linux/libseccomp.md 
+      - kbuild: linux/kbuild.md
+      - 'autoconf 和 automake': linux/autoconf_automake.md
    - otopi:
-      - 分析: otopi/analyze.md 
+      - 'otopi分析': otopi/analyze.md 
       - '在ovirt-engine的使用': 'otopi/otopi_in_ovirt_engine.md' 
    - 'ovirt-engine':
       - 开发环境: 'ovirt/engine/development_environment.md'
@@ -19,5 +21,7 @@ nav:
       - maven: 'ovirt/engine/maven.md'
    - 密码学: 
       - '<图解密码学> note':  cs/cryptology.md 
-   - About: about.md 
-  
+   - 算法:
+      - 'toposort': algorithm/toposort.md  
+   - java:
+      - 'inject' : 'java/依赖注入/intro.md'
