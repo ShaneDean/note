@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title><图解密码学> note - Shane Dean 笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u003c\u56fe\u89e3\u5bc6\u7801\u5b66\u003e note";
+        var mkdocs_page_input_path = "cs/cryptology.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Shane Dean 笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../linux/shell/">shell语法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bpf/">bpf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../linux/libseccomp/">libseccomp</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../linux/kbuild/">kbuild</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../linux/autoconf_automake/">autoconf 和 automake</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">otopi</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../otopi/analyze/">otopi分析</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../otopi/otopi_in_ovirt_engine/">在ovirt-engine的使用</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ovirt-engine</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ovirt/engine/development_environment/">开发环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ovirt/engine/spec/">spec</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ovirt/engine/makefile/">makefile</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ovirt/engine/maven/">maven</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">密码学</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#"><图解密码学> note</a>
+    <ul class="current">
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">算法</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../algorithm/toposort/">toposort</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">java</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../java/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/intro/">inject</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Shane Dean 笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">密码学</li>
+      <li class="breadcrumb-item active"><图解密码学> note</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/ShaneDean/note/blob/master/docs/cs/cryptology.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">前言</h1>
+<p>本文是对《<a href="https://item.jd.com/11942019.html">图解密码技术</a>》厚到薄的阅读总结。</p>
+<h1 id="6">密码学家的6个工具箱</h1>
+<ul>
+<li>对称密码<ul>
+<li>通过相同的密钥来对目标信息进行加密解密</li>
+<li>加密解密的过程就是执行异或操作，因为第一次执行异或操作等于加密，第二次执行异或操作等于解密。</li>
+<li>密码算法可以分为分组密码和流密码两种：流密码是对一串数据进行连续处理，因此需要保持内部状态（一次性密码）；而分组密码处理完一个分组就结束了了，不需要通过内部状态来记录加密的进度（DES、三重DES、AES）。</li>
+<li>分组密码迭代的方法就是分组密码的模式，包括ECB、CBC、CFB、OFB、CTR。</li>
+</ul>
+</li>
+</ul>
+<p>对称密码是一种用相同的密钥进行加密和解密的技术，用于确保消息的机密性。在对称密码的算法方面，目前主要使用的是AES。尽管对称密码能够确保消息的机密性，但需要解决将解密密钥配送给接收者的密钥配送问题。</p>
+<ul>
+<li>公钥密码<ul>
+<li>公钥用来加密，私钥用来解密。</li>
+<li>公钥密码的运行速度远远低于对称密码，一般的通信过程会组合使用公钥密码和私钥。</li>
+<li>对称密码用来加解密数据，公钥密码用来传输对称密钥。</li>
+<li>使用接收者的公钥来加密对称密钥并发送；只有接收者拥有该公钥对应的私钥并能成功解密获得对称密钥。</li>
+</ul>
+</li>
+</ul>
+<p>公钥密码是一种用不同的密钥进行加密和解密的技术，和对称密码一样用于确保消息的机密性。使用最广泛的一种公钥密码算法RSA。和对称密码相比，公钥密码的速度非常慢，因此一般会和对称密码组合成混合密码系统来使用。公钥密码能够解决对称面中的密钥交换的问题，但存在通过中间人攻击被伪装的风险，因此需要对带有数字签名的公钥进行认证</p>
+<ul>
+<li>单向散列函数<ul>
+<li>输入消息和输出散列值，单向散列函数所输出的散列值的长度是固定的。</li>
+<li>具备抗碰撞性、具备单向性、</li>
+</ul>
+</li>
+</ul>
+<p>单向散列函数是一种将长消息转换为短散列值的技术，用于保证消息的完整性。目前广泛使用SHA-2，存在全新结构的SHA-3算法。单向散列函数可以单独使用，也可以用作消息认证码、数字签名以及伪随机数生成器等技术的组成元素来使用。</p>
+<ul>
+<li>消息认证码<ul>
+<li>消息认证码的输入包括任意长度的消息和一个发送者与接收者之间共享的密钥，他可以输出固定长度的值，这个数据称为MAC值</li>
+<li>是一种与密钥相关的单向散列函数</li>
+<li>确保不能根据MAC值来推测出双方通信的密钥</li>
+</ul>
+</li>
+</ul>
+<p>消息认证码时一种能够识别通信对象发送的消息是否被篡改的认证技术，用于验证消息的完整性，以及对消息进行认证。消息认证码能够对通信对象进行认证，但无法对第三方进行认证。</p>
+<ul>
+<li>数字签名<ul>
+<li>用私钥加密来生成签名，用公钥解密来验证签名。</li>
+<li>签名针对单向散列函数的散列值。</li>
+<li>这里用来代表一种只有只有该密钥的人才能够生成的信息。</li>
+</ul>
+</li>
+</ul>
+<p>数字签名是一种能够对第三方进行消息认证，并能够防止通信对象作出否认的认证技术。公钥基础设施（PKI）中使用的证书，技术在对公钥加上认证机构的数字签名所构成的。需要验证公钥的数字签名，需要通过某种途径获取认证机构自身的合法公钥。</p>
+<ul>
+<li>伪随机数生成器<ul>
+<li>随机数性质分为：随机性、不可预测性、不可重现性。逐步严格。分别命名为弱伪随机数、强伪随机数和真随机数。</li>
+<li>根据传感器收集的热量、声音的变化等事实上无法预测和重现的自然现象来生产的随机数列的硬件被称为随机数生成器</li>
+<li>生成随机数的软件称为伪随机数生成器。</li>
+<li>伪随机数生成器具有内部状态，需要种子（seed）来进行内部的初始化。</li>
+<li>java.util.Random不能用于安全相关用途，使用java.security.SecureRandom的类。</li>
+</ul>
+</li>
+</ul>
+<p>随机数生成器是一种能够生成不可预测的比特序列的技术，由密码和单向散列函数技术构成。伪随机数生成器用于生成密钥、初始化向量和nonce（用于避免重放攻击只是用一次的数字）等</p>
+<p>这些工具箱的作用如下图</p>
+<p><img alt="作用" src="https://github.com/ShaneDean/file/blob/master/blog/sec/sec_threaten_and_cryptographic_technique.png?raw=true" /></p>
+<p><img alt="工具箱" src="https://github.com/ShaneDean/file/blob/master/blog/sec/sec-tool-kit.png?raw=true" /></p>
+<h1 id="_2">对比</h1>
+<p>对称密码和公钥密码的对比</p>
+<table>
+<thead>
+<tr>
+<th>\</th>
+<th>对称密码</th>
+<th>公钥密码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>发送者</strong></td>
+<td>共享密钥加密</td>
+<td>用公钥加密</td>
+</tr>
+<tr>
+<td><strong>接收者</strong></td>
+<td>共享密钥解密</td>
+<td>用私钥解密</td>
+</tr>
+<tr>
+<td><strong>密钥配送问题</strong></td>
+<td>存在</td>
+<td>不存在，单公钥需要另外认证</td>
+</tr>
+<tr>
+<td><strong>机密性</strong></td>
+<td>满足</td>
+<td>满足</td>
+</tr>
+</tbody>
+</table>
+<p>公钥密码和数字签名的对比</p>
+<table>
+<thead>
+<tr>
+<th>\</th>
+<th>私钥</th>
+<th>公钥</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>公钥密码</strong></td>
+<td>接收者解密时候使用</td>
+<td>发送者加密时候使用</td>
+</tr>
+<tr>
+<td><strong>数字签名</strong></td>
+<td>签名者生成签名时使用</td>
+<td>验证者验证签名时使用</td>
+</tr>
+<tr>
+<td><strong>谁持有密钥</strong>？</td>
+<td>个人持有</td>
+<td>任何人都可以持有</td>
+</tr>
+</tbody>
+</table>
+<p>消息认证码和数字签名对比</p>
+<table>
+<thead>
+<tr>
+<th>\</th>
+<th>消息认证码</th>
+<th>数字签名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>发送者</strong></td>
+<td>用共享密钥计算MAC值</td>
+<td>用私钥生成签名</td>
+</tr>
+<tr>
+<td><strong>接收者</strong></td>
+<td>用共享密钥计算MAC值</td>
+<td>用公钥验证签名</td>
+</tr>
+<tr>
+<td><strong>密钥配送问题</strong></td>
+<td>存在</td>
+<td>不存在，单公钥需要另外认证</td>
+</tr>
+<tr>
+<td><strong>完整性</strong></td>
+<td>满足</td>
+<td>满足</td>
+</tr>
+<tr>
+<td><strong>认证</strong></td>
+<td>满足（仅限通信双方）</td>
+<td>满足（可使用于任何第三方）</td>
+</tr>
+<tr>
+<td><strong>防止否认</strong></td>
+<td>不满足</td>
+<td>满足</td>
+</tr>
+</tbody>
+</table>
+<h1 id="_3">其他</h1>
+<h2 id="_4">证书</h2>
+<p>证书是用来对公钥的合法性进行证明的技术。 公钥证书包含姓名、组织、邮箱、地址等个人星系，以及属于此人的公钥，并由认证机构追加数字签名。</p>
+<p>认证机构是能够认定“公钥确实属于此人”并能够生成数字签名的个人活组织。认证机构中有国际性组织和政府设立的组织，也有通过提供认证服务来盈利的一般企业。</p>
+<p>证书标准规范：X.509</p>
+<h2 id="pki">PKI</h2>
+<p>公钥基础设施（Public-Key Infrastructure)是为了能够更好地运用公钥而制定的一些列规范和规格的总称。</p>
+<p>主要包含3个要素：用户（使用PKI的人）、认证机构（颁发证书的人）、仓库（保存证书的数据库）</p>
+<p>关系如下：</p>
+<p><img alt="pki元素" src="https://github.com/ShaneDean/file/blob/master/blog/sec/sec_elements_of_pki.png?raw=true" /></p>
+<h2 id="_5">密钥</h2>
+<p>密钥就是一个十分巨大的数字，密钥空间是密钥的长度，它的大小决定了可能出现的密钥的总数量和暴力破解的难度。</p>
+<p>密钥和明文是等价的。</p>
+<p>生成密钥的最好方法是使用随机数。密码学用途的伪随机数生成器必须专门针对密码学用途而设计。</p>
+<h2 id="pgp">PGP</h2>
+<p>提供现代密码软件所必需的几乎全部所有功能，如：对称密码、公钥密码、数字签名、单向散列函数、证书、压缩、文本和二进制转换、大文件的拆分与合并、钥匙串管理。</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../ovirt/engine/maven/" class="btn btn-neutral float-left" title="maven"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../algorithm/toposort/" class="btn btn-neutral float-right" title="toposort">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ShaneDean/note/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../../ovirt/engine/maven/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../algorithm/toposort/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

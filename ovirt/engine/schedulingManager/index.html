@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>调度策略 - Shane Dean 笔记</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u8c03\u5ea6\u7b56\u7565";
+        var mkdocs_page_input_path = "ovirt/engine/schedulingManager.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Shane Dean 笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../linux/shell/">shell语法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../cs/bpf/">bpf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../linux/libseccomp/">libseccomp</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../linux/kbuild/">kbuild</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../linux/autoconf_automake/">autoconf 和 automake</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">otopi</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../otopi/analyze/">otopi分析</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../otopi/otopi_in_ovirt_engine/">在ovirt-engine的使用</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ovirt-engine</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../development_environment/">开发环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../spec/">spec</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../makefile/">makefile</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../maven/">maven</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">密码学</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../cs/cryptology/"><图解密码学> note</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">算法</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../algorithm/toposort/">toposort</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">java</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../java/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/intro/">inject</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Shane Dean 笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">调度策略</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/ShaneDean/note/blob/master/docs/ovirt/engine/schedulingManager.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">调度策略</h1>
+<p>管网文档定义：调度策略是一组规则，它定义了虚拟机在应用这个调度的集群中的主机间的分配逻辑。</p>
+<p>调度策略主要由下面三类对象组成。
+- filter:用来过滤不符合条件的host
+- weighting:用来增加符合条件的host的权重
+- load balancing:上两者的集合，代表一个执行策略。</p>
+<p>以上的三类对象都由policyUnitImpl对象的子类来完成。
+filter 的都是xxxUnit
+weighting 的都是xxxWightPolicyUnit
+load balancing的都是 xxxbalancePolicyUnit</p>
+<p>PolicyUnitImpl是一个abstract类，它有很多具体的实现子类。
+其中包括CpuPiningPolicyUnit,CompatibilityVersionFilterPolicyUnit等</p>
+<p>在InternalPolicyUnits内部定义internal的内可用的策略，放在enabledUnits中。
+并且ovirt定义了一个接口注解， SchedulingUnit ，用来标志policyUnit</p>
+<pre><code>@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface SchedulingUnit {
+    String guid(); 
+
+    //每个unit名称，可以在手册中的1.5找到描述的功能说明
+    String name(); 
+    PolicyUnitType type() default PolicyUnitType.FILTER;
+
+    //每一个策略单元的具体功能可以通过这个属性来快速了解
+    String description() default &quot;&quot;;
+    PolicyUnitParameter[] parameters() default {};
+}
+</code></pre>
+<p>在InternalPolicyUnits.instantiate中检测了每一个policyUnit是否在InternalPolicyUnits.enabledUnits中定义、是否被SchedulingUnit注解标志出来</p>
+<p>调度策略对应的对象是<strong>ClusterPolicy</strong>，负责保存主机选择和负载均衡的BE。</p>
+<pre><code>private Guid id;
+private String name;
+private String description;
+
+//true表示是保留的内置策略
+private boolean locked;
+//true表示没有可用的特定policy，使用默认
+private boolean defaultPolicy;
+//可用的filters的id列表
+private ArrayList&lt;Guid&gt; filters;
+ //上面filter的对应顺序，可接受的value包括  first(-1) | last(1) | no position(0)
+private Map&lt;Guid, Integer&gt; filterPositionMap;
+//定义了每个权重的分数
+private ArrayList&lt;Pair&lt;Guid, Integer&gt;&gt; functions;
+//一个loadbalance
+private Guid balance;
+//提供的参数集
+private Map&lt;String, String&gt; parameterMap;
+</code></pre>
+<h2 id="schedulingmanager">SchedulingManager</h2>
+<p>继承自BackendService，主要作用于系统的集群调度策略。</p>
+<h3 id="_2">成员分析</h3>
+<pre><code>@Inject
+private AuditLogDirector auditLogDirector;
+@Inject
+private ResourceManager resourceManager;//todo
+@Inject
+private MigrationHandler migrationHandler;//todo
+@Inject
+private ExternalSchedulerDiscovery exSchedulerDiscovery;//用来发现外部的policy
+@Inject
+private DbFacade dbFacade;//用来返回vds\cluster\policyunit\clusterpolicy等dao来查询数据库
+@Inject
+private NetworkDeviceHelper networkDeviceHelper;//todo
+@Inject
+private HostDeviceManager hostDeviceManager;//todo
+
+private PendingResourceManager pendingResourceManager;
+
+/**
+ * [policy id, policy] map
+ */
+private final ConcurrentHashMap&lt;Guid, ClusterPolicy&gt; policyMap;
+/**
+ * [policy unit id, policy unit] map
+ */
+private volatile ConcurrentHashMap&lt;Guid, PolicyUnitImpl&gt; policyUnits;
+
+private final Object policyUnitsLock = new Object();
+
+private final ConcurrentHashMap&lt;Guid, Semaphore&gt; clusterLockMap = new ConcurrentHashMap&lt;&gt;();
+
+private final VdsFreeMemoryChecker noWaitingMemoryChecker = new VdsFreeMemoryChecker(new NonWaitingDelayer());
+
+private final Map&lt;Guid, Boolean&gt; clusterId2isHaReservationSafe = new HashMap&lt;&gt;();
+
+</code></pre>
+<h3 id="_3">初始化分析</h3>
+<pre><code>    @PostConstruct
+    public void init() {
+        log.info(&quot;Initializing Scheduling manager&quot;);
+        //负责获取各类变化的资源情况，操作对象是所有继承PendingResource类的资源类，比如CPU、内存等
+        initializePendingResourceManager();
+        //加载内部外部policyUnit;内部在enabledUnits里面定义;外部在db里面查询;
+        loadPolicyUnits();
+        //加载内部外部ClusterPolicies;内部由createBuilder构建;外部在db里面查询;
+        loadClusterPolicies();
+        //加载外部的scheduler,默认关闭;如果发现就重新加载policyUnit
+        loadExternalScheduler();
+        //启动loadBalance,默认开启;使用quartz定时器调用performLoadBalancing();
+        enableLoadBalancer();
+        //启用HA检查，默认开启;使用quartz定时器调用performHaResevationCheck();
+        enableHaReservationCheck();
+        log.info(&quot;Initialized Scheduling manager&quot;);
+    }
+</code></pre>
+<h2 id="pendingresource">PendingResource</h2>
+<p>用作所有trackable pending resource一个基础类模板
+实现一个静态方法给PendingResourceManager来调用，完成收集每台host和VM的数据信息。</p>
+<p>子类包括
+- PendingCpuCores <br />
+核心数量
+- PendingMemory   <br />
+host内存大小，单位MB
+- PendingOvercommitMemory
+- PendingVm </p>
+<h3 id="pendingresourcemanager">PendingResourceManager</h3>
+<pre><code>//Tracking service for all pending resources
+public class PendingResourceManager{
+    ...
+    // All internal structures have to be thread-safe for concurrent access
+    private final Map&lt;Guid, Set&lt;PendingResource&gt;&gt; resourcesByHost = new ConcurrentHashMap&lt;&gt;();
+    private final Map&lt;Guid, Set&lt;PendingResource&gt;&gt; resourcesByVm = new ConcurrentHashMap&lt;&gt;();
+    private final Map&lt;PendingResource, PendingResource&gt; pendingResources = new ConcurrentHashMap&lt;&gt;();
+
+    private final ResourceManager resourceManager;
+
+    ...
+
+    public void addPending(PendingResource resource) { ... }
+
+    public void clearHost(VDS host) { ... }
+
+    public void clearVm(VmStatic vm) { ... } 
+
+    public &lt;T extends PendingResource&gt; Iterable&lt;T&gt; pendingResources(Class&lt;T&gt; type) { ... }
+
+    public &lt;T extends PendingResource&gt; Iterable&lt;T&gt; pendingHostResources(Guid host, Class&lt;T&gt; type) { ... }
+
+    public &lt;T extends PendingResource&gt; Iterable&lt;T&gt; pendingVmResources(Guid vm, Class&lt;T&gt; type) { ... } 
+
+    public void notifyHostManagers(Guid hostId) { ... }
+
+    public &lt;T extends PendingResource&gt; T getExactPendingResource(T template) { ... }
+}
+
+</code></pre>
+<h3 id="internalpolicyunits">InternalPolicyUnits</h3>
+<h3 id="internalclusterpolicies">InternalClusterPolicies</h3>
+<p>通过createBuilder来构建了5个预定义的集群策略。代码逻辑如下：</p>
+<pre><code>createBuilder(&quot;xxxx-a7ac-4d5f-xxxx&quot;)            //传入uuid
+    .name(&quot;NAME&quot;)                               //传入集群策略名称
+    .isDefault()                                //制定当前策略是默认策略
+    .setBalancer(XXXBalancePolicyUnit.class)    //设置balancer
+
+    .addFilters(XXXPolicyUnit.class)            //设置filter
+    ...
+
+    .addFunction(1, xxxWeightPolicyUnit.class)  //设置weight和权重值
+    ...
+
+    .set(PolicyUnitParameter.XXX , 'VALUE')     //设置调度策略的参数和值
+
+    .register();                                //注册集群调度策略到InternalClusterPolicies里面内置的clusterPolicies中
+
+</code></pre>
+<p>通过这种方式定义的集群调度策略有5个：
+- Evenly_Distributed
+- InClusterUpgrade
+- None
+- Power_Saving
+- VM_Evenly_Distributed</p>
+<h2 id="entity">涉及的entity</h2>
+<ul>
+<li>AffinityGroup ：<ul>
+<li>保留一些VMs和属性。</li>
+<li>每个VM可以关联几个AffinityGroup</li>
+<li>每个VM由调度逻辑取决于它所属的AffinityGroup的规则</li>
+</ul>
+</li>
+<li>ClusterPolicy :<ul>
+<li>保存主机选择和load balancing的逻辑</li>
+<li>内部clusterPolicy是由ovirt内置存在的,用户可以自己添加外部的ClusterPolicy,由is_locked的字段来标识这个区别</li>
+</ul>
+</li>
+<li>PolicyUnit<ul>
+<li>filter,weight,balance三类方法</li>
+</ul>
+</li>
+<li>PerHostMessages<ul>
+<li>Map<Guid, List\<String>> message; //保存各个host的消息list</li>
+</ul>
+</li>
+<li>OptimizationType<ul>
+<li>定义集群优化的三种方案：none,optimize_for_speed,allow_overbooking</li>
+<li>//TODO 三者区别</li>
+</ul>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ShaneDean/note/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

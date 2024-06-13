@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>inject - Shane Dean 笔记</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "inject";
+        var mkdocs_page_input_path = "java/\u4f9d\u8d56\u6ce8\u5165/intro.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Shane Dean 笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../linux/shell/">shell语法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../cs/bpf/">bpf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../linux/libseccomp/">libseccomp</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../linux/kbuild/">kbuild</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../linux/autoconf_automake/">autoconf 和 automake</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">otopi</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../otopi/analyze/">otopi分析</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../otopi/otopi_in_ovirt_engine/">在ovirt-engine的使用</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ovirt-engine</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../ovirt/engine/development_environment/">开发环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../ovirt/engine/spec/">spec</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../ovirt/engine/makefile/">makefile</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../ovirt/engine/maven/">maven</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">密码学</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../cs/cryptology/"><图解密码学> note</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">算法</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../algorithm/toposort/">toposort</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">java</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">inject</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1">1. 依赖</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2">2. 依赖注入</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-java">3. Java 中的依赖注入</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Shane Dean 笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">java</li>
+      <li class="breadcrumb-item active">inject</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/ShaneDean/note/blob/master/docs/java/依赖注入/intro.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p>转载<a href="https://github.com/android-cn/blog/blob/master/java/dependency-injection/README.md">原文</a></p>
+<h1 id="_1">依赖注入</h1>
+<h3 id="1">1. 依赖</h3>
+<p>如果在 Class A 中，有 Class B 的实例，则称 Class A 对 Class B 有一个依赖。例如下面类 Human 中用到一个 Father 对象，我们就说类 Human 对类 Father 有一个依赖。</p>
+<pre><code class="language-java">public class Human {
+    ...
+    Father father;
+    ...
+    public Human() {
+        father = new Father();
+    }
+}
+</code></pre>
+<p>仔细看这段代码我们会发现存在一些问题：
+(1). 如果现在要改变 father 生成方式，如需要用<code>new Father(String name)</code>初始化 father，需要修改 Human 代码；
+(2). 如果想测试不同 Father 对象对 Human 的影响很困难，因为 father 的初始化被写死在了 Human 的构造函数中；
+(3). 如果<code>new Father()</code>过程非常缓慢，单测时我们希望用已经初始化好的 father 对象 Mock 掉这个过程也很困难。</p>
+<h3 id="2">2. 依赖注入</h3>
+<p>上面将依赖在构造函数中直接初始化是一种 Hard init 方式，弊端在于两个类不够独立，不方便测试。我们还有另外一种 Init 方式，如下：</p>
+<pre><code class="language-java">public class Human {
+    ...
+    Father father;
+    ...
+    public Human(Father father) {
+        this.father = father;
+    }
+}
+</code></pre>
+<p>上面代码中，我们将 father 对象作为构造函数的一个参数传入。在调用 Human 的构造方法之前外部就已经初始化好了 Father 对象。<strong>像这种非自己主动初始化依赖，而通过外部来传入依赖的方式，我们就称为依赖注入。</strong>
+现在我们发现上面 1 中存在的两个问题都很好解决了，简单的说依赖注入主要有两个好处：
+(1). 解耦，将依赖之间解耦。
+(2). 因为已经解耦，所以方便做单元测试，尤其是 Mock 测试。</p>
+<h3 id="3-java">3. Java 中的依赖注入</h3>
+<p>依赖注入的实现有多种途径，而在 Java 中，使用注解是最常用的。通过在字段的声明前添加 @Inject 注解进行标记，来实现依赖对象的自动注入。</p>
+<pre><code class="language-java">public class Human {
+    ...
+    @Inject Father father;
+    ...
+    public Human() {
+    }
+}
+</code></pre>
+<p>上面这段代码看起来很神奇：只是增加了一个注解，
+Father 对象就能自动注入了？这个注入过程是怎么完成的？</p>
+<p>实质上，如果你只是写了一个 @Inject 注解，Father 并不会被自动注入。你还需要使用一个依赖注入框架，并进行简单的配置。
+现在 Java 语言中较流行的依赖注入框架有 <a href="https://github.com/google/guice">Google Guice</a>、
+<a href="http://projects.spring.io/spring-framework/">Spring</a> 等，而在 Android 上比较流行的有
+<a href="https://github.com/roboguice/roboguice">RoboGuice</a>、<a href="http://square.github.io/dagger/">Dagger</a> 等。其中 Dagger 是我现在正在项目中使用的。
+如果感兴趣，你可以到 <a href="https://github.com/android-cn/android-open-project-analysis/tree/master/dagger">Dagger 实现原理解析</a> 了解更多依赖注入和 Dagger 实现原理相关信息。</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../../algorithm/toposort/" class="btn btn-neutral float-left" title="toposort"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ShaneDean/note/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../../../algorithm/toposort/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

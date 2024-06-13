@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>kbuild - Shane Dean 笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "kbuild";
+        var mkdocs_page_input_path = "linux/kbuild.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Shane Dean 笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">linux</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../shell/">shell语法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cs/bpf/">bpf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../libseccomp/">libseccomp</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">kbuild</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../autoconf_automake/">autoconf 和 automake</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">otopi</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../otopi/analyze/">otopi分析</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../otopi/otopi_in_ovirt_engine/">在ovirt-engine的使用</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ovirt-engine</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ovirt/engine/development_environment/">开发环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ovirt/engine/spec/">spec</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ovirt/engine/makefile/">makefile</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ovirt/engine/maven/">maven</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">密码学</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cs/cryptology/"><图解密码学> note</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">算法</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../algorithm/toposort/">toposort</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">java</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../java/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/intro/">inject</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Shane Dean 笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">linux</li>
+      <li class="breadcrumb-item active">kbuild</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/ShaneDean/note/blob/master/docs/linux/kbuild.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">前言</h1>
+<p>参考<a href="https://jin-yang.github.io/reference/linux/kernel/KBUILD_system.pdf">KBUILD系统原理分析</a></p>
+<h1 id="make">make 总结</h1>
+<ol>
+<li>依次读取变量"MAKEFILES"定义的makefile文件列表</li>
+<li>读取工作目录下的Makefile文件</li>
+<li>依次读取工作目录makefile文件中使用指示符"include"包含的文件</li>
+<li>查找重建所有以读取的makefile文件的规则</li>
+<li>初始化变量值并展开那些需要立即展开的变量和函数并根据预设条件确定执行分支</li>
+<li>根据“最终目标”以及其他目标的依赖关系建立依赖关系链表</li>
+<li>执行除“最终目标”以外的所有的目标的规则</li>
+<li>执行最终目标所在的规则</li>
+</ol>
+<h1 id="kbuild-make">KBUILD MAKE</h1>
+<table>
+<thead>
+<tr>
+<th>文件名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Makefile</td>
+<td>顶层 Makefile</td>
+</tr>
+<tr>
+<td>.config</td>
+<td>内核配置文件</td>
+</tr>
+<tr>
+<td>arch/$(ARCH)/Makefile</td>
+<td>具体架构的 Makefile</td>
+</tr>
+<tr>
+<td>scripts/Makefile.*</td>
+<td>通用的规则等，面向所有的 Kbuild Makefiles。</td>
+</tr>
+<tr>
+<td>kbuild Makefiles</td>
+<td>内核源代码中大约有 500 个这样的文件</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">目标定义</h2>
+<pre><code>obj-$(CONFIG_FOO)+=foo.o
+</code></pre>
+<p>$(CONFIG_FOO) 可以为 y (编译进内核) 或 m (编译成模块)。否则的话  foo.o就不会被编译连接了</p>
+<h3 id="obj-y">obj-y</h3>
+<pre><code>KBuild Makefile规定编译进内核的文件都存在$(obj-y)的列表中。
+编译所有的$(obj-y)文件，然后调用$(LD) -r将它们合并到一个build-in.o文件中，然后该文件会被其父Makefile连接到vmlinux中
+$(obj-y)中的文件有顺序，可以重复项。连接过程有顺序，有些函数module_init()/__initcall将会在启动时按照他们出现的顺序进行调用。
+注意顺序会改变SCSI控制器的检测顺序，从而导致硬盘数据损害
+</code></pre>
+<h3 id="obj-m">obj-m</h3>
+<pre><code>列举了哪些文件要编译成可装载模块
+一个模块可以由一个文件或多个文件编译而成。
+一个文件直接加$(obj-m)
+多个文件，需要声明编译的模块。通过变量$(&lt;module_name&gt;-objs)声明哪些文件在
+让 KbuildMakefile 可以通过使用 CONFIG_符号来判断该对象是否是用来组合对象的
+</code></pre>
+<h3 id="lib-y">lib-y</h3>
+<pre><code>其中所列的文件来组成目录下的一个库文件。
+在obj-y和lib-y中同时出现的文件，因为都是可以访问的，所以该文件不会被包含在库文件中。
+相同情况的lib-m中的文件就会包含在lib.a库文件中
+build-in.o和lib.a可以同时出现在一个目录里面
+</code></pre>
+<h3 id="_3">访问子目录</h3>
+<pre><code>一个Makefile只对编译所在的目录对象负责。在子目录中的文件的编译要由其所在的子目录的MakeFile来管理。
+通过obj-$(CONFIG_MODULE_NAME) += module_dirctory/
+</code></pre>
+<h3 id="_4">编辑标志</h3>
+<pre><code>EXTRA_变量只在所定义的Kbuild Makefile中起作用
+
+$(EXTRA_CFLAGS) 是用 $(CC) 编译 C 源文件时的选项。
+$(EXTRA_AFLAGS)也是一个针对每个目录的选项，只不过它是用来编译汇编源代码的。
+$(EXTRA_LDFLAGS) 和 $(EXTRA_ARFLAGS)分别与 $(LD)和 $(AR)类似，只不过，他们是针对每个目录的。
+
+$(CFLAGS_$@) 是 $(CC) 针对每个文件的选项。$@ 表明了具体操作的文件。
+$(AFLAGS_$@) 也类似，只不是是针对汇编语言的。
+</code></pre>
+<h3 id="_5">其他</h3>
+<pre><code>跟踪依赖
+
+    1、所有要参与编译的文件（.c和.h)文件
+    2、在参与编译文件中所要使用的CONFIG_选项
+    3、用于编译目标的命令行
+
+
+特殊依赖
+
+    $(src)表明 Makefile所在目录的相对路径。经常在定位源代码树中的文件时，使用该变量。
+    $(obj) 表明目标文件所要存储目录的相对路径。经常在定位所生成的文件时，使用该变量。
+
+支持的函数
+as-option，当编译汇编文件(*.S)时，用来检查 $(CC) 是否支持特定选项。如果第一个选项不支持的话，可选的第二个选项可以用来指定。
+ld-option，当联接目标文件时，用来检查 $(CC) 是否支持特定选项。如果第一个选项不支持的话，可选的第二个选项可以用来指定。
+cc-option，用来检查 $(CC) 是否支持特定选项,并且不支持使用可选的第二项。
+cc-option-yn,用来检查 gcc 是否支持特定选项，返回'y'支持，否则为'n'。
+
+cc-option-align  : gcc 版本大于 3.0时，改变了函数，循环等用来声明内存对齐的选项。当用到对齐选项时，$(cc-option-align) 用来选择正确的前缀
+cc-version 以数学形式返回 $(CC)编译器的版本号。其格式是：&lt;major&gt;&lt;minor&gt;，二者都是数学。
+cc-ifversion 测试 $(CC) 的版本号，如果版本表达式为真，就赋值为最后的参数。
+</code></pre>
+<h2 id="_6">本地程序支持</h2>
+<p>Kbuild将编译分成了2个阶段
+1. 告诉Kbuild存在哪些可执行文件。通过变量hostprogs-y来完成的。
+2. 添加一个对可执行文件的显性依赖。（通过增加依赖关系到一个规则中，或是利用$(always)）</p>
+<p>$(<executeable>-objs) 列出了联接成最后的可执行文件所需的所有目标文件。</p>
+<h3 id="_7">定义共享库</h3>
+<p>扩展名为 so 的文件称为共享库，被编译成位置无关对象。</p>
+<p>共享库文件经常要求一个相应的 -objs，</p>
+<p>程序经常是利用$(HOSTCC)编译,其选项在 $(HOSTCFLAGS)变量中。可通过使用变量 HOST＿EXTRACFLAGS，影响所有在 Makefile 文件中要创建的主机程序。</p>
+<h2 id="makefile">构建Makefile</h2>
+<p>Kbuild 执行的几个步骤
+1. 根据内核配置生产文件.config
+2. 将内核的版本号存储在include/linux/version.h
+3. 生产指向include/asm-$(ARCH)的符号链接
+4. 更新所有编译所需的文件：附加的文件由arch/$(ARCH)/Makefile指定
+5. 递归向下访问所有在下列变量中列出的目录 init-<em> core</em> drivers-<em> net-</em> libs-*,并编译生成目标文件。这些变量的值可以再arch/$(ARCH)/Makefile中扩充。
+6. 链接所有的目标文件，在源代码树顶层目录中生成vmlinux。最先链接是在head-y中列出的文件，该变量由arch/$(ARCH)/Makefile赋值
+7. 最后完成具体架构的特殊要求，并生成最终的启动镜像（ 包含生成启动指令， 准备 initrd 镜像或类似文件）</p>
+<h3 id="_8">针对具体架构的调整</h3>
+<pre><code>LDFLAGS 一般是$(LD)选项
+LDFLAGS_Module 链接模块时的链接器选项，在链接模块.ko文件使用
+LDFLAGS_vmlinux 用来链接vmlinux时使用
+
+OBJCOMPYFLAGS objcopy选项
+$(call if_changed,objcopy) 经常被用来为 vmlinux 生成原始的二进制代码
+
+AFLAGS $(AS) 汇编编译器选项
+
+CFLAGS $(CC) 编译器选项
+
+$(CFLAGS_KERNEL) 包含了用于编译常驻内核代码的附加编译器选项。
+
+$(CFLAGS_MODULE) 包含了用于编译可装载模块的附加编译器选项。
+
+archprepare 规则在递归访问子目录之前，列出编译目标文件所需文件。
+</code></pre>
+<h3 id="kbuild">自定义kbuild命令</h3>
+<pre><code>    当 Kbuild 的变量 KBUILD_VERBOSE 为 0 时，只会显示命令的简写。
+    如果要为自定义命令使用这一功能，需要设置 2 个变量：
+    quiet_cmd_&lt;command&gt; - 要显示的命令
+    cmd_&lt;command&gt; - 要执行的命令
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../libseccomp/" class="btn btn-neutral float-left" title="libseccomp"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../autoconf_automake/" class="btn btn-neutral float-right" title="autoconf 和 automake">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ShaneDean/note/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../libseccomp/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../autoconf_automake/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

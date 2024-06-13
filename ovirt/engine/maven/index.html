@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>maven - Shane Dean 笔记</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "maven";
+        var mkdocs_page_input_path = "ovirt/engine/maven.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Shane Dean 笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../linux/shell/">shell语法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../cs/bpf/">bpf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../linux/libseccomp/">libseccomp</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../linux/kbuild/">kbuild</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../linux/autoconf_automake/">autoconf 和 automake</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">otopi</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../otopi/analyze/">otopi分析</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../otopi/otopi_in_ovirt_engine/">在ovirt-engine的使用</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ovirt-engine</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../development_environment/">开发环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../spec/">spec</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../makefile/">makefile</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">maven</a>
+    <ul class="current">
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">密码学</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../cs/cryptology/"><图解密码学> note</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">算法</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../algorithm/toposort/">toposort</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">java</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../java/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/intro/">inject</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Shane Dean 笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">ovirt-engine</li>
+      <li class="breadcrumb-item active">maven</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/ShaneDean/note/blob/master/docs/ovirt/engine/maven.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">前言</h1>
+<p>ovirt-engine是一个由maven组织起来java项目，其中也包括makefile、package或otopi plugin等其他手段来协助完成打包、验证、开发环境准备、初始化等工作，但主要的是maven，在分析梳理项目或导入项目的时候都可以以pom.xml为入口。一个大型项目通常都是由几个小项目或者模块组成的，通过pom.xml定义的关系和包含的mvn plugin可以快速的了解每个子项目的作用从而理解整个项目。</p>
+<p>例如来make install-dev中出现错误的时候，一般应当找到对应报错的maven项目，切换到该项目目录，分析出错的maven命令的原因，这样就可以了解深层次的错误原因而不是看到报错一筹莫展。</p>
+<h1 id="maven">maven</h1>
+<p>maven的学习资料比较多，可以通过阅读<a href="https://segmentfault.com/a/1190000014136187">参考1</a>、<a href="https://juejin.im/entry/5b0fa70af265da090e3df499">参考2</a>、<a href="http://jolestar.com/dependency-management-tools-maven-gradle/">参考3</a>、<a href="http://www.cnblogs.com/davenkin/p/advanced-maven-multi-module-vs-inheritance.html">参考4</a>、<a href="http://maven.apache.org/guides/getting-started/index.html">官网</a>和<a href="https://item.jd.com/10476794.html">书</a>来学习。</p>
+<p>个人感觉可以和npm类比的学习<a href="https://codeday.me/bug/20181204/432991.html">参考5</a></p>
+<p>maven本只提供了一个执行环境，真正的操作项目的是由插件来执行的，例如编译java的compile插件、打包的jar插件等等。在安装完maven后会有内置的默认插件，全部定义在所有maven都需要集成的Super Pom里面。</p>
+<p>除了maven默认插件之外，熟练使用丰富的外部 plugin是学习maven的另一个重点。</p>
+<p>每个plugin都可以通过mvn [plugin]:[action]的方式使用其提供的服务。</p>
+<p>例如tomcat-maven-plugin：</p>
+<pre><code>mvn tomcat:deploy   --部署一个web war包
+mvn tomcat:reload   --重新加载web war包
+mvn tomcat:start    --启动tomcat
+mvn tomcat:stop    --停止tomcat
+mvn tomcat:undeploy --停止一个war包
+mvn tomcat:run  --启动嵌入式tomcat ，并运行当前项目
+</code></pre>
+<h1 id="pomxml">pom.xml</h1>
+<p>在engine项目中的root pom.xml中定义了5个module，</p>
+<pre><code>build-tools-root： 包含静态检查的一些通用规则配置文件,如checkstyle\findbugs
+backend：   后台业务逻辑代码
+frontend:   前台业务逻辑代码
+ear：          定义jboss运行时的内外部依赖和业务逻辑代码中不同子项目的打包方式、URL映射关系
+mavenmake:      执行make install-dev
+</code></pre>
+<p>详细分析见下图:</p>
+<p><img alt="ovirt-engine-maven-pom" src="https://github.com/ShaneDean/file/raw/eb68d3da19b6bb1d293900288228650ee4b43f9b/blog/ovirt_engine_env/ovirt-engine-maven-pom.png" /></p>
+<h1 id="plugin">plugin</h1>
+<p>engine中各个项目中用到的插件汇总如下：</p>
+<ul>
+<li>maven-resources-plugin</li>
+<li>maven-surefire-plugin</li>
+<li>maven-ejb-plugin</li>
+<li>maven-source-plugin</li>
+<li>maven-checkstyle-plugin</li>
+<li>maven-enforcer-plugin</li>
+<li>maven-war-plugin</li>
+<li>maven-deploy-plugin</li>
+<li>maven-javadoc-plugin</li>
+<li>ovirt-jboss-modules-maven-plugin</li>
+<li>maven-compiler-plugin</li>
+<li>findbugs-maven-plugin</li>
+<li>maven-shade-plugin</li>
+<li>maven-dependency-plugin</li>
+<li>exec-maven-plugin</li>
+<li>maven-jaxb22-plugin</li>
+<li>build-helper-maven-plugin</li>
+<li>maven-antrun-plugin</li>
+<li>libsass-maven-plugin</li>
+<li>gwt-maven-plugin</li>
+<li>maven-processor-plugin</li>
+<li>maven-clean-plugin</li>
+<li>lifecycle-mapping</li>
+<li>maven-ear-plugin</li>
+<li>taglist-maven-plugin</li>
+<li>maven-jar-plugin</li>
+<li>maven-assembly-plugin</li>
+<li>animal-sniffer-maven-plugin</li>
+</ul>
+<h2 id="ovirt-jboss-modules-maven-plugin">ovirt-jboss-modules-maven-plugin</h2>
+<p>这是ovirt项目团队写的一个maven插件，This plugin is intended to simplify the creation of JBoss Modules in Maven projects.</p>
+<p>ovirt-engine使用是jdk1.8，java的原生module是在9才出现。JBOSS自己实现了一套module的机制，需要通过module.xml的文件来声明模块的依赖和资源。<a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html-single/development_guide/index#class_loading_and_modules">jboss-module-参考资料</a>，在engine里面的</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../makefile/" class="btn btn-neutral float-left" title="makefile"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../../cs/cryptology/" class="btn btn-neutral float-right" title="<图解密码学> note">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ShaneDean/note/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../makefile/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../../cs/cryptology/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

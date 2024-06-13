@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>开发环境 - Shane Dean 笔记</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5f00\u53d1\u73af\u5883";
+        var mkdocs_page_input_path = "ovirt/engine/development_environment.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Shane Dean 笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../linux/shell/">shell语法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../cs/bpf/">bpf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../linux/libseccomp/">libseccomp</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../linux/kbuild/">kbuild</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../linux/autoconf_automake/">autoconf 和 automake</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">otopi</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../otopi/analyze/">otopi分析</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../otopi/otopi_in_ovirt_engine/">在ovirt-engine的使用</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ovirt-engine</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">开发环境</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">基础环境</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#centos7">安装Centos7</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#jdk">安装jdk</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#maven350">配置maven3.5.0</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#git">安装git</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">克隆代码</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">导入项目</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">开发环境</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">编译</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">依赖服务</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#postgresql">配置postgresql</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_8">增加数据库用户</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#jboss">增加jboss环境</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#engine">engine 服务启动</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#engine-setup">engine-setup</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#start">start</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_9">可能出现的错误的解决办法</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">调试环境</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../spec/">spec</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../makefile/">makefile</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../maven/">maven</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">密码学</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../cs/cryptology/"><图解密码学> note</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">算法</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../algorithm/toposort/">toposort</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">java</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../java/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/intro/">inject</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Shane Dean 笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">ovirt-engine</li>
+      <li class="breadcrumb-item active">开发环境</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/ShaneDean/note/blob/master/docs/ovirt/engine/development_environment.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">开发环境</h1>
+<h2 id="_2">基础环境</h2>
+<h3 id="centos7">安装Centos7</h3>
+<p><img alt="image" src="https://github.com/ShaneDean/file/blob/master/blog/ovirt_engine_env/version.png?raw=true" /></p>
+<h3 id="jdk">安装jdk</h3>
+<p>下载最新<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html/">jdk8</a> </p>
+<p>选择jdk-xxxx-linux-x64.rpm版本</p>
+<pre><code>sudo rpm -ivh jdk-xxxx-linux-x64.rpm
+</code></pre>
+<p>修改JAVA环境变量</p>
+<pre><code>vim /etc/profile
+
+//在最后加上，然后wq!
+export JAVA_HOME=/usr/java/jdk1.8.0_144
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+export PATH=$PATH:$JAVA_HOME/bin
+
+//启用配置
+source /etc/profile
+
+//此时替换掉原有的centos7 java版本 选择你下载的版本
+sudo alternatives --config java
+
+//最后
+java -version
+</code></pre>
+<h3 id="maven350">配置maven3.5.0</h3>
+<p><a href="http://www.cnblogs.com/HendSame-JMZ/p/6122188.html">参考</a> </p>
+<h3 id="git">安装git</h3>
+<pre><code>sudo yum install git
+</code></pre>
+<p>速度太慢 替换使用阿里源 <a href="http://mirrors.aliyun.com/help/centos">参考</a></p>
+<p>ht内部源<a href="http://mirrors.ht.com/repo/help/centos.html">参考</a></p>
+<h3 id="_3">克隆代码</h3>
+<p>代码仓库有2个可选
+一个是<a href="https://github.com/oVirt/ovirt-engine">github</a>，另一个是ovirt项目开发用的<a href="https://gerrit.ovirt.org/#/admin/projects/ovirt-engine">gerrit</a></p>
+<pre><code>cd /the/path/you/want/
+git clone https://github.com/oVirt/ovirt-engine.git
+cd ovirt-engine
+//切换分支，我们这里使用ovirt-engine-4.0
+git branch -a  //查看全部分支
+git checkout -t origin/ovirt-engine-4.0 //切换分支
+</code></pre>
+<h3 id="_4">导入项目</h3>
+<p>下载安装intellij idea安装；完成后打开。</p>
+<pre><code>Import Project -&gt; 
+    选择克隆代码路径 -&gt; 
+import project from external model -&gt;
+    选择&lt;maven&gt; -&gt;
+Environment settings... -&gt;
+    选择3.5.0的MAVEN_HOME-&gt;
+    选择Override -&gt;
+-&gt;next ... 
+-&gt;选择新的jdk 
+-&gt;next ...
+</code></pre>
+<p>全部完成后ide会自动去下载依赖</p>
+<p>觉得国外下载速度慢可以<a href="http://blog.csdn.net/u010717403/article/details/52188496">参考</a>替换成阿里源或者内部的源</p>
+<p>依赖导入完成后就可以阅读代码了</p>
+<h2 id="_5">开发环境</h2>
+<p>阅读代码的下一步就是把项目跑起来</p>
+<h3 id="_6">编译</h3>
+<pre><code>//关闭单元测试，不然时间太久
+make install-dev PREFIX="/the/path/you/want/" BUILD_UT=0
+
+//建议时间戳来设置不同的安装目录，不然清理和重新配置的过程会有很多麻烦
+//第一次时间还是会比较久，因为会有一些临时下载的包
+//存在因为网络原因导致失败的情况，请耐心等待
+
+...
+</code></pre>
+<p>编译的时候我们可以先去做其他事情</p>
+<p>成功的效果：
+<img alt="image" src="https://github.com/ShaneDean/file/blob/master/blog/ovirt_engine_env/make_install_dev.png?raw=true" /></p>
+<h3 id="_7">依赖服务</h3>
+<p>参考ovirt-engine的readme文件</p>
+<pre><code>- jdk-8 / openjdk-8-jdk / icedtea-8
+- mime-types or mailcap
+- unzip
+- openssl
+- postgresql-server postgresql
+- python-m2crypto / m2crypto
+- python-psycopg2 / psycopg
+- python-jinja2 / Jinja2
+- libxml2-python / libxml2[python]
+- python-daemon
+- otopi &gt;= 1.1.0
+- ovirt-host-deploy &gt;= 1.1.0
+- ovirt-setup-lib
+- maven-3 (optional)
+- pyflakes (optional)
+- python-pep8 / pep8 (optional)
+- patternfly1 (optional)
+- python-docker-py (optional)
+</code></pre>
+<p>首先</p>
+<pre><code>sudo yum install http://plain.resources.ovirt.org/pub/yum-repo/ovirt-release40.rpm
+</code></pre>
+<p>然后执行</p>
+<pre><code>sudo yum install mailcap unzip m2crypto python-psycopg2 python-jinja2 libxml2-python python-daemon otopi ovirt-host-deploy ovirt-setup-lib postgresql-server ovirt-engine-wildfly ovirt-engine-wildfly-overlay patternfly1 pyflakes
+
+
+//
+</code></pre>
+<p>找不到的包去<a href="https://rpmfind.net/">rpmfind</a>里面去下</p>
+<h4 id="postgresql">配置postgresql</h4>
+<pre><code>sudo -i
+cd /var/lib/pgsql/data
+postgresql-setup initdb
+vim pg_hba.conf  #增加允许的IP
+</code></pre>
+<p><img alt="image" src="https://github.com/ShaneDean/file/blob/master/blog/ovirt_engine_env/postgresql1.png?raw=true" /></p>
+<pre><code>vim postgresql.conf 
+</code></pre>
+<p><img alt="image" src="https://github.com/ShaneDean/file/blob/master/blog/ovirt_engine_env/postgresql2.png?raw=true" /></p>
+<h4 id="_8">增加数据库用户</h4>
+<pre><code>systemctl restart postgresql.service
+
+su postgres
+
+psql
+
+#create user
+create user engine password 'engine';
+#create database
+create database engine owner engine template template0 encoding 'UTF8' lc_collate 'en_US.UTF-8' lc_ctype 'en_US.UTF-8';
+#exit
+\q
+</code></pre>
+<h4 id="jboss">增加jboss环境</h4>
+<pre><code>sudo vim /etc/profile
+
+#增加一段    
+export JBOSS_HOME=/usr/share/ovirt-engine-wildfly
+</code></pre>
+<h3 id="engine">engine 服务启动</h3>
+<h4 id="engine-setup">engine-setup</h4>
+<p>在编译完成后，如果是第一次启动服务我们需要调用ovirt提供的setup脚步来配置初始化服务</p>
+<pre><code>cd /the/path/you/make/install-dev/
+
+./bin/engine-setup
+
+#后面根据个人需求配置
+</code></pre>
+<h4 id="start">start</h4>
+<pre><code>./share/ovirt-engine/services/ovirt-engine/ovirt-engine.py start
+
+</code></pre>
+<p>访问  ++http://127.0.0.1:8080/ovirt-engine/++</p>
+<h4 id="_9">可能出现的错误的解决办法</h4>
+<p><a href="http://blog.csdn.net/wangjun_pfc/article/details/5528893">错误1</a></p>
+<p>登录效果<img alt="image" src="https://github.com/ShaneDean/file/blob/master/blog/ovirt_engine_env/webadmin1.png?raw=true" /></p>
+<h2 id="_10">调试环境</h2>
+<p>服务起来后的下一步就是启用调试环境，可以断点调试</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../../otopi/otopi_in_ovirt_engine/" class="btn btn-neutral float-left" title="在ovirt-engine的使用"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../spec/" class="btn btn-neutral float-right" title="spec">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ShaneDean/note/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../../../otopi/otopi_in_ovirt_engine/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../spec/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

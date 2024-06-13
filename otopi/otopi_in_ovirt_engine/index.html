@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>在ovirt-engine的使用 - Shane Dean 笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u5728ovirt-engine\u7684\u4f7f\u7528";
+        var mkdocs_page_input_path = "otopi/otopi_in_ovirt_engine.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Shane Dean 笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../linux/shell/">shell语法</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cs/bpf/">bpf</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../linux/libseccomp/">libseccomp</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../linux/kbuild/">kbuild</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../linux/autoconf_automake/">autoconf 和 automake</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">otopi</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../analyze/">otopi分析</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">在ovirt-engine的使用</a>
+    <ul class="current">
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">ovirt-engine</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ovirt/engine/development_environment/">开发环境</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ovirt/engine/spec/">spec</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ovirt/engine/makefile/">makefile</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ovirt/engine/maven/">maven</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">密码学</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cs/cryptology/"><图解密码学> note</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">算法</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../algorithm/toposort/">toposort</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">java</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../java/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/intro/">inject</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Shane Dean 笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">otopi</li>
+      <li class="breadcrumb-item active">在ovirt-engine的使用</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/ShaneDean/note/blob/master/docs/otopi/otopi_in_ovirt_engine.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">前言</h1>
+<p>oVirt项目的几个关键组件如engine、vdsm，都是通过otopi来完成install、config、uninstall的。</p>
+<p>本篇重点介绍ovirt-engine是如何使用otopi的。</p>
+<h1 id="engine">engine的脚本</h1>
+<p>在完成ovirt-engine开发环境构建之后，在${PREFIX}/bin/目录下面，有一些可执行的脚步，其中包括engine-setup、engine-cleanup、engine-config等会经常使用的脚步。</p>
+<pre><code>ls -al
+//连接关系  ： engine-setup  -&gt;    xxxxx/ovirt-engine-setup
+</code></pre>
+<h2 id="ovirt-engine-setup">ovirt-engine-setup</h2>
+<p>这是一个shell脚步，它的作用是准备setup的环境(ovirt-engine-setup.env)和参数(baseenv)，我们也可以通过 --help来查看我们可以传递进去的一些选项。</p>
+<p>命令的最终是执行 </p>
+<pre><code>exec "${otopidir}/otopi" "${baseenv} ${environment} ${otopienv}"
+</code></pre>
+<p>在engine的packaging/setup目录下还提供了两个相关的重要内容。</p>
+<pre><code>ovirt_engine_setup  // python module
+plugins             // otopi中定义的插件
+</code></pre>
+<p><strong>ovirt_engine_setup</strong>模块的功能提供给plugins目录下面的插件所使用。</p>
+<p><img alt="image" src="https://github.com/ShaneDean/file/blob/master/blog/ovirt_engine_env/ovirt_engine_packages_setup_plugins_list.png?raw=true" /></p>
+<p>对应的关系是 </p>
+<pre><code>./plugins/${groups}/[${directory}]/${plugins}/__init__.py
+</code></pre>
+<p>每个_ _ init _ _.py文件里面定义了plugin</p>
+<p><img alt="image" src="https://github.com/ShaneDean/file/blob/master/blog/ovirt_engine_env/ovirt_engine_packages_setup_plugins_plugin_createPlugins.png?raw=true" /></p>
+<p>所以最后都会通过otopi的context.registerPlugin来保存全部加载到的context变量_plugins中。</p>
+<h2 id="engine-setup-log">engine-setup log</h2>
+<p>执行</p>
+<pre><code>./bin/engine-setup --log=./engine-setup.log
+</code></pre>
+<p>无论配置过程成功或失败，我们可以查看engine-setup.log文件。其中里面包含了 ENVIRONMENT 和 SEQUENCE的dump信息。
+ENOVIRONMENT包含了各类环境变量。
+SEQUENCE里面就根据不同的阶段显示了所有需要执行的各类方法。</p>
+<p>SEQUENCE 显示结构如下所示</p>
+<pre><code>STAGE  ${Stages.STAGE_XXXX}
+    METHOD  otopi.plugins.${groups}.[${directory}].${plugin}.Plugin.${method}
+    METHOD  otopi.plugins.${groups}.[${directory}].${plugin}.Plugin.${method}
+</code></pre>
+<p>我们可以根据对应的关键信息在engine项目中找到对应的实现代码。</p>
+<h2 id="debug">debug</h2>
+<p>使用调试工具可以帮助我们分析代码、理解原理。</p>
+<p>下面介绍如何调试 engine-setup程序</p>
+<p>使用Pycharm导入otopi项目
+新建一个Run/Debug Configurations</p>
+<p><img alt="image" src="https://github.com/ShaneDean/file/blob/master/blog/ovirt_engine_env/otopi-debug-ovirt-engine-setup.png?raw=true" /></p>
+<p>图中标号：</p>
+<h3 id="1">1</h3>
+<p>otopi 的入口是 otopi/src/bin/otopi的shell，最终执行</p>
+<pre><code>exec "${OTOPI_PYTHON}" -B -m otopi.__main__ "${extraenv} $*"
+</code></pre>
+<p>此处我们直接使用新建一个python 的run/debug ，入口程序就是exec python -B -m 后面对应的otopi._ _ main__</p>
+<h3 id="2">2</h3>
+<p>ovirt-engine项目中的engine-setup已经指定了传给otopi的参数，也可以在exec前面增加echo来查看</p>
+<h3 id="3">3</h3>
+<p>增加 </p>
+<pre><code>OTOPI_DEBUG = 1
+</code></pre>
+<p>由于engine-setup执行的过程中import了部分engine里面的python lib, 地址如下：</p>
+<pre><code>ovirt-engine/packaging/setup/ovirt_engine_setup
+ovirt-engine/packaging/pythonlib/ovirt-engine
+</code></pre>
+<p>需要相应的修改 PYTHONPATH</p>
+<p>这样就可以执行调试了</p>
+<h1 id="engineplugin">为engine脚本添加一个plugin来完成指定工作</h1>
+<p>首先需要明确需要完成哪些功能，明白是哪个阶段来做这个工作</p>
+<pre><code>//todo
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../analyze/" class="btn btn-neutral float-left" title="otopi分析"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../ovirt/engine/development_environment/" class="btn btn-neutral float-right" title="开发环境">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ShaneDean/note/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../analyze/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../ovirt/engine/development_environment/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
